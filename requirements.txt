@@ -5,7 +5,7 @@ blinker==1.9.0
 click==8.3.1
     # via flask
 flask==3.1.2
-    # via hobby-off-app (pyproject.toml)
+    # via hobby-off-generator (pyproject.toml)
 itsdangerous==2.2.0
     # via flask
 jinja2==3.1.6
@@ -15,5 +15,7 @@ markupsafe==3.0.3
     #   flask
     #   jinja2
     #   werkzeug
+pillow==12.1.1
+    # via hobby-off-generator (pyproject.toml)
 werkzeug==3.1.5
     # via flask
