@@ -17,6 +17,7 @@ package = false
 
 [dependency-groups]
 dev = [
+    "pyright>=1.1.408",
     "ruff>=0.15.1",
 ]
 
@@ -57,3 +58,7 @@ unfixable = [
     "ANN",     # Type annotations optional in tests
     "D",       # Docstrings optional in tests
 ]
+
+[tool.pyright]
+typeCheckingMode = "standard"  # basic/standard/strict から選択
+pythonVersion = "3.12"
