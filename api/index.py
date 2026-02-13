@@ -105,9 +105,6 @@ def generate():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# Vercel用のハンドラ
-handler = app
-
 if __name__ == '__main__':
     # ローカル開発時の起動
     app.run(debug=True, host='0.0.0.0', port=5000)
