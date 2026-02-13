@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobby OFF 商品情報入力</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #c41e3a;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-generate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-reset {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+        
+        .preview {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .preview.show {
+            display: block;
+        }
+        
+        .preview h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .preview img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .helper-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏪 Hobby OFF</h1>
+        <p class="subtitle">商品情報入力フォーム</p>
+        
+        <form id="productForm">
+            <div class="form-group">
+                <label for="genre">ジャンル</label>
+                <input type="text" id="genre" name="genre" value="ポケカ" required>
+                <p class="helper-text">例: プラモデル、フィギュア、ゲーム</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="product_name">品名</label>
+                <input type="text" id="product_name" name="product_name" value="ピカチュウ" required>
+                <p class="helper-text">商品の名称を入力してください</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="maker_name">メーカー名</label>
+                <input type="text" id="maker_name" name="maker_name" value="ポケットモンスター" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="reference_price">参考新品市場価格</label>
+                <input type="text" id="reference_price" name="reference_price" value="4,400" required>
+                <p class="helper-text">カンマ区切りで入力（例: 4,400）</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="price_with_tax">報込価格</label>
+                <input type="text" id="price_with_tax" name="price_with_tax" value="3,300" required>
+                <p class="helper-text">税込価格をカンマ区切りで入力</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="base_price">本体価格</label>
+                <input type="text" id="base_price" name="base_price" value="3,000" required>
+                <p class="helper-text">税抜価格をカンマ区切りで入力</p>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" class="btn-generate">🎨 画像を生成</button>
+                <button type="reset" class="btn-reset">🔄 リセット</button>
+            </div>
+        </form>
+        
+        <div class="loading" id="loading">
+            <p>⏳ 画像を生成中...</p>
+        </div>
+        
+        <div class="preview" id="preview">
+            <h2>✅ 生成された画像</h2>
+            <img id="previewImage" src="" alt="生成された画像">
+            <button onclick="downloadImage()" style="margin-top: 15px; width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                📥 画像をダウンロード
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('productForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // フォームデータを取得
+            const formData = {
+                genre: document.getElementById('genre').value,
+                product_name: document.getElementById('product_name').value,
+                maker_name: document.getElementById('maker_name').value,
+                reference_price: document.getElementById('reference_price').value,
+                price_with_tax: document.getElementById('price_with_tax').value,
+                base_price: document.getElementById('base_price').value
+            };
+            
+            // ローディング表示
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('preview').classList.remove('show');
+            
+            try {
+                // サーバーにリクエストを送信
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const imageUrl = URL.createObjectURL(blob);
+                    
+                    // プレビュー表示
+                    document.getElementById('previewImage').src = imageUrl;
+                    document.getElementById('preview').classList.add('show');
+                } else {
+                    alert('画像の生成に失敗しました');
+                }
+            } catch (error) {
+                alert('エラーが発生しました: ' + error.message);
+            } finally {
+                document.getElementById('loading').classList.remove('show');
+            }
+        });
+        
+        // リセットボタンの処理
+        document.getElementById('productForm').addEventListener('reset', function(e) {
+            // プレビューを非表示
+            document.getElementById('preview').classList.remove('show');
+            document.getElementById('loading').classList.remove('show');
+            
+            // デフォルト値に戻す
+            setTimeout(function() {
+                document.getElementById('genre').value = 'プラモデル';
+                document.getElementById('product_name').value = 'ガンダムRX-78-2';
+                document.getElementById('maker_name').value = 'バンダイ';
+                document.getElementById('reference_price').value = '4,400';
+                document.getElementById('price_with_tax').value = '3,300';
+                document.getElementById('base_price').value = '3,000';
+            }, 0);
+        });
+        
+        function downloadImage() {
+            const img = document.getElementById('previewImage');
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = 'hobby_off_filled.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>
