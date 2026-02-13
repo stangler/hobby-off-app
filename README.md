@@ -1,148 +1,52 @@
-# Hobby OFF 画像生成アプリケーション
+# Hobby OFF Image Generator Application
 
-## 統一されたファイル構成（ローカル・Vercel共通）
+## Unified File Structure (Local & Vercel Compatible)
 
 ```
-プロジェクトフォルダ/
+project_folder/
 ├── api/
-│   └── index.py          # メインアプリケーション
+│   └── index.py          # Main application
 ├── static/
 │   ├── base.png
 │   ├── NotoSansJP-Bold.ttf
 │   └── NotoSansJP-Regular.ttf
 ├── templates/
 │   └── form.html
-├── vercel.json           # Vercel設定
-├── pyproject.toml        # uv依存関係管理
-└── requirements.txt      # Vercel用（uvから生成）
+├── vercel.json           # Vercel configuration
+└── pyproject.toml        # uv dependency management
 ```
 
-## ローカル開発環境でのセットアップ（uv使用）
+## Local Development Setup (using uv)
 
-### 1. 依存関係のインストール
+### 1. Install Dependencies
 
 ```bash
-# uvがインストールされていない場合
+# If uv is not installed
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# 依存関係をインストール
+# Install dependencies
 uv sync
 ```
 
-### 2. アプリケーションの起動
+### 2. Run the Application
 
 ```bash
-# api/index.pyを直接実行
+# Run api/index.py directly
 uv run python api/index.py
 ```
 
-または
+or
 
 ```bash
 cd api
 uv run python index.py
 ```
 
-### 3. ブラウザでアクセス
 
-```
-http://localhost:5000
-```
+## Usage
 
-## Vercelへのデプロイ
-
-### 1. requirements.txtの生成
-
-Vercelはuvをサポートしていないため、requirements.txtを生成します：
-
-```bash
-uv pip compile pyproject.toml -o requirements.txt
-```
-
-### 2. デプロイ手順
-
-1. GitHubにリポジトリを作成
-2. すべてのファイルをコミット・プッシュ
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push
-   ```
-3. Vercelダッシュボードで「New Project」をクリック
-4. GitHubリポジトリを選択
-5. 「Deploy」をクリック
-
-### 3. 注意事項
-
-- `static/` フォルダに必ず以下のファイルを配置：
-  - `base.png`
-  - `NotoSansJP-Bold.ttf`
-  - `NotoSansJP-Regular.ttf`
-- `templates/` フォルダに `form.html` を配置
-- Vercelデプロイ前に `requirements.txt` を生成してコミット
-
-## 使い方
-
-1. ブラウザでアプリケーションにアクセス
-2. フォームに商品情報を入力
-3. 「画像を生成」ボタンをクリック
-4. 生成された画像がプレビュー表示される
-5. 「画像をダウンロード」ボタンでダウンロード可能
-
-## トラブルシューティング
-
-### Vercelでエラーが出る場合
-
-1. ファイル構成を確認（上記の構成と一致しているか）
-2. `static/` と `templates/` フォルダが正しく配置されているか確認
-3. フォントファイルと画像ファイルがコミットされているか確認
-4. `requirements.txt` が最新か確認
-   ```bash
-   uv pip compile pyproject.toml -o requirements.txt
-   ```
-
-### ローカルでポート5000が使用中の場合
-
-`api/index.py` の最終行を変更：
-
-```python
-app.run(debug=True, host='0.0.0.0', port=8000)  # ポート番号を変更
-```
-
-### パスエラーが出る場合
-
-`api/index.py` は自動的にパスを探索するため、以下のどちらの方法でも起動可能：
-
-```bash
-# ルートディレクトリから実行
-python api/index.py
-
-# apiディレクトリから実行
-cd api && python index.py
-```
-
-## uvコマンド早見表
-
-```bash
-# 依存関係の追加
-uv add パッケージ名
-
-# 依存関係の削除
-uv remove パッケージ名
-
-# 依存関係の同期
-uv sync
-
-# アプリケーションの実行
-uv run python api/index.py
-
-# requirements.txtの生成（Vercel用）
-uv pip compile pyproject.toml -o requirements.txt
-```
-
-## ファイル構成の利点
-
-- **統一性**: ローカルとVercelで同じファイル構成
-- **シンプル**: `api/index.py` がメインファイル
-- **自動パス解決**: どこから実行しても動作する
-
+1. Access the application in your browser
+2. Enter product information in the form
+3. Click "Generate Image" button
+4. The generated image will be displayed in preview
+5. Download the image using "Download Image" button
