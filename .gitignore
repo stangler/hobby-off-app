@@ -208,3 +208,6 @@ __marimo__/
 
 # Devcontainer
 .devcontainer
+
+# cline
+implementation_plan.md
