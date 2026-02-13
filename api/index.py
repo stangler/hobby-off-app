@@ -7,7 +7,7 @@ Works both locally and on Vercel.
 from io import BytesIO
 from pathlib import Path
 
-from flask import Flask, render_template, request, send_file
+from flask import Flask, Response, render_template, request, send_file
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -104,11 +104,11 @@ def index() -> str:
 
 
 @app.route("/generate", methods=["POST"])
-def generate() -> tuple[dict, int] | tuple[bytes, int]:
+def generate() -> Response:
     """Generate and return image as response.
 
     Returns:
-        Image file as bytes with 200 status, or error JSON with 500 status.
+        Image file as Response.
 
     """
     data = request.get_json()
