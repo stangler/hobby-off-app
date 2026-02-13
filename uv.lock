@@ -52,7 +52,7 @@ wheels = [
 [[package]]
 name = "hobby-off-generator"
 version = "0.1.0"
-source = { editable = "." }
+source = { virtual = "." }
 dependencies = [
     { name = "flask" },
     { name = "pillow" },
