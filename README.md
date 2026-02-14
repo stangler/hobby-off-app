@@ -50,3 +50,53 @@ uv run python index.py
 3. Click "Generate Image" button
 4. The generated image will be displayed in preview
 5. Download the image using "Download Image" button
+
+## Code Quality and Testing Tools
+
+### Ruff (Python Linter)
+
+```bash
+# Install ruff
+uv add ruff
+
+# Run ruff to check code style
+uv run ruff check .
+
+# Automatically fix issues
+uv run ruff check . --fix
+
+# Check specific file or directory
+uv run ruff check api/
+```
+
+### Pyright (Python Type Checker)
+
+```bash
+# Install pyright
+uv add pyright
+
+# Run pyright to check type annotations
+uv run pyright
+
+# Check specific file
+uv run pyright api/index.py
+```
+
+### Pytest (Python Testing Framework)
+
+```bash
+# Install pytest
+uv add pytest
+
+# Run all tests
+uv run pytest
+
+# Run tests with coverage
+uv run pytest --cov=api
+
+# Run specific test file
+uv run pytest tests/test_app.py
+
+# Run tests in verbose mode
+uv run pytest -v
+```
