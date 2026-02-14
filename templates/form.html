@@ -223,9 +223,10 @@
                 base_price: document.getElementById('base_price').value
             };
             
-            // ローディング表示
-            document.getElementById('loading').classList.add('show');
-            document.getElementById('preview').classList.remove('show');
+// ローディング表示
+document.getElementById('loading').classList.add('show');
+document.getElementById('preview').classList.remove('show');
+await new Promise(resolve => setTimeout(resolve, 100)); // ローディング表示を確実にするための遅延
             
             try {
                 // サーバーにリクエストを送信
