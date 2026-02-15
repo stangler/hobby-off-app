@@ -23,6 +23,9 @@ dev = [
     "ruff>=0.15.1",
 ]
 
+# ----------------------------
+# Ruff
+# ----------------------------
 [tool.ruff]
 line-length = 120
 
@@ -30,38 +33,39 @@ line-length = 120
 select = ["ALL"]
 
 ignore = [
-    # Documentation
-    "D1",     # Missing docstrings
-    "D203",   # One blank line before class
-    "D213",   # Multi-line summary second line
-    "D400",   # First line should end with period
-    "D415",   # First line should end with punctuation
-
-    # Development
-    "TD",     # todo tags allowed
-    "T201",   # print() allowed for debugging
-
-    # Exception handling
-    "TRY003", # Long exception messages allowed
-    "EM101",  # Exception string literals allowed
-    "COM812", # Trailing comma missing (conflicts with formatter)
-
-    # Arguments
-    "PLR0913", # Too many arguments (6 needed for generate_image)
-]
-
-unfixable = [
+    "D1",
+    "D203",
+    "D213",
+    "D400",
+    "D415",
+    "TD",
+    "T201",
+    "TRY003",
+    "EM101",
+    "COM812",
+    "PLR0913",
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = [
-    "S101",    # assert allowed in tests
-    "PLR2004", # Magic values allowed in tests
-    "ANN",     # Type annotations optional in tests
-    "D",       # Docstrings optional in tests
+    "S101",
+    "PLR2004",
+    "ANN",
+    "D",
 ]
 
-[tool.pyright]
-typeCheckingMode = "standard"  # basic/standard/strict から選択
-pythonVersion = "3.12"
+# ----------------------------
+# Pytest（★追加部分）
+# ----------------------------
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra"
 
+# ----------------------------
+# Pyright
+# ----------------------------
+[tool.pyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.12"
+reportUnusedFunction = false
