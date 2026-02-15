@@ -1,12 +1,10 @@
-from pathlib import Path
-
 from PIL import Image, ImageFont
 
 from app.domain.product import Product
 from app.services.image_generator import ImageGenerator
 
 
-def test_generate_image(tmp_path: Path) -> None:
+def test_generate_image() -> None:
     font = ImageFont.load_default()
 
     generator = ImageGenerator(

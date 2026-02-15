@@ -1,12 +1,13 @@
-from typing import Union
-
 from PIL import Image, ImageDraw, ImageFont
 
 from app.domain.product import Product
-from app.services.layout import GENRE_POSITION, TITLE_POSITION, PRICE_POSITION
+from app.services.layout import (
+    GENRE_POSITION,
+    PRICE_POSITION,
+    TITLE_POSITION,
+)
 
-
-FontType = Union[ImageFont.ImageFont, ImageFont.FreeTypeFont]
+FontType = ImageFont.ImageFont | ImageFont.FreeTypeFont
 
 
 class ImageGenerator:
