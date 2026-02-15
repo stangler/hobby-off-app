@@ -18,8 +18,11 @@ def test_generate_image() -> None:
 
     product = Product(
         genre="TestGenre",
-        title="TestTitle",
-        price="1000",
+        product_name="TestProductName",
+        maker_name="TestMakerName",
+        reference_price="1000",
+        price_with_tax="1100",
+        base_price="900",
     )
 
     img = generator.generate(product, base_image)

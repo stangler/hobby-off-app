@@ -79,8 +79,10 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'uv run flask --app api/index run --port 3000',
+    // command: 'uv run flask --app api/index run --port 3000',
+    command: 'uv run python run.py',
     url: 'http://localhost:3000',
+    // url: 'http://localhost:5000',
     reuseExistingServer: !process.env.CI,
   },
 });

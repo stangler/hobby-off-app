@@ -35,13 +35,13 @@ class ImageGenerator:
 
         draw.text(
             (TITLE_POSITION.x, TITLE_POSITION.y),
-            product.title,
+            product.product_name,
             font=self.font_small,
         )
 
         draw.text(
             (PRICE_POSITION.x, PRICE_POSITION.y),
-            product.price,
+            product.price_with_tax,
             font=self.font_price_large,
         )
 

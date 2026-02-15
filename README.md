@@ -1,102 +1,121 @@
 # Hobby OFF Image Generator Application
 
-## Unified File Structure (Local & Vercel Compatible)
+## ファイル構成
 
 ```
-project_folder/
-├── api/
-│   └── index.py          # Main application
+hobby-off-app/
+├── app/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── domain/
+│   │   ├── __init__.py
+│   │   └── product.py
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   └── image.py
+│   └── services/
+│       ├── __init__.py
+│       ├── image_generator.py
+│       └── layout.py
 ├── static/
 │   ├── base.png
+│   ├── hobby_off_filled.png
 │   ├── NotoSansJP-Bold.ttf
 │   └── NotoSansJP-Regular.ttf
 ├── templates/
 │   └── form.html
-├── vercel.json           # Vercel configuration
-└── pyproject.toml        # uv dependency management
+├── tests/
+│   └── services/
+│       ├── __init__.py
+│       └── test_image_generator.py
+├── e2e/
+│   ├── form-submission.spec.ts
+│   ├── utils.ts
+│   └── validation.spec.ts
+├── pyproject.toml
+├── vercel.json
+├── playwright.config.ts
+├── package.json
+├── pnpm-lock.yaml
+├── run.py
+└── README.md
 ```
 
-## Local Development Setup (using uv)
+## 開発環境のセットアップ
 
-### 1. Install Dependencies
+### 1. 依存関係のインストール
 
 ```bash
-# If uv is not installed
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Install dependencies
+# Python 依存関係のインストール
 uv sync
+
+# Node.js 依存関係のインストール（E2Eテスト用）
+pnpm install
 ```
 
-### 2. Run the Application
+### 2. アプリケーションの実行
 
 ```bash
-# Run api/index.py directly
-uv run python api/index.py
+# 開発サーバーの起動
+uv run python run.py
 ```
 
-or
+## 使用方法
+
+1. ブラウザでアプリケーションにアクセス
+2. フォームに商品情報を入力
+3. 「画像生成」ボタンをクリック
+4. 生成された画像がプレビュー表示される
+5. 「画像ダウンロード」ボタンで画像を保存
+
+## コード品質とテストツール
+
+### 静的解析ツール
+
+#### Ruff（Pythonリンター）
 
 ```bash
-cd api
-uv run python index.py
-```
-
-
-## Usage
-
-1. Access the application in your browser
-2. Enter product information in the form
-3. Click "Generate Image" button
-4. The generated image will be displayed in preview
-5. Download the image using "Download Image" button
-
-## Code Quality and Testing Tools
-
-### Ruff (Python Linter)
-
-```bash
-# Install ruff
-uv add ruff
-
-# Run ruff to check code style
+# コードスタイルのチェック
 uv run ruff check .
 
-# Automatically fix issues
+# 自動修正
 uv run ruff check . --fix
 
-# Check specific file or directory
-uv run ruff check api/
+# 特定のファイルのチェック
+uv run ruff check app/services/image_generator.py
 ```
 
-### Pyright (Python Type Checker)
+#### Pyright（Python型チェッカー）
 
 ```bash
-# Install pyright
-uv add pyright
-
-# Run pyright to check type annotations
+# 型チェックの実行
 uv run pyright
 
-# Check specific file
-uv run pyright api/index.py
+# 特定のファイルのチェック
+uv run pyright app/services/image_generator.py
 ```
 
-### Pytest (Python Testing Framework)
+### テスト
+
+#### 単体テスト（pytest）
 
 ```bash
-# Install pytest
-uv add pytest
-
-# Run all tests
+# すべてのテストを実行
 uv run pytest
 
-# Run tests with coverage
-uv run pytest --cov=api
+# カバレッジ付きで実行
+uv run pytest --cov=app
 
-# Run specific test file
-uv run pytest tests/test_app.py
+# 特定のテストファイルを実行
+uv run pytest tests/services/test_image_generator.py
 
-# Run tests in verbose mode
+# 詳細表示で実行
 uv run pytest -v
+```
+
+#### E2Eテスト（Playwright）
+
+```bash
+# テストの実行
+pnpm exec playwright test
 ```
