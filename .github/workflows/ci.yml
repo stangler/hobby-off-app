@@ -3,7 +3,6 @@ name: CI
 on:
   push:
   pull_request:
-  workflow_dispatch:
 
 jobs:
   test:
@@ -23,6 +22,10 @@ jobs:
       - name: Install dependencies
         run: uv sync --all-groups
 
+      # 🔥 ここが重要（playwright本体が無いと失敗する）
+      - name: Install Playwright browsers
+        run: uv run playwright install --with-deps
+
       - name: Run Ruff
         run: uv run ruff check .
 
@@ -31,3 +34,6 @@ jobs:
 
       - name: Run Pytest
         run: uv run pytest --cov=app --cov-report=term
+
+      - name: Run Playwright E2E
+        run: uv run pytest tests/e2e
