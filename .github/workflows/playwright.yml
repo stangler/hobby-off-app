@@ -20,6 +20,9 @@ jobs:
           node-version: "24"
           cache: "pnpm"
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
       - name: Install dependencies
         run: pnpm install
 
