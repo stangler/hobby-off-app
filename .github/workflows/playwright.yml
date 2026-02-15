@@ -3,28 +3,33 @@ name: E2E
 on:
   push:
   pull_request:
-  workflow_dispatch:
 
 jobs:
   e2e:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      # Node 24
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.12"
+          node-version: "24"
+          cache: "pnpm"
+
+      # pnpm install
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: uv sync --all-groups
+        run: pnpm install
 
-      - name: Install Playwright browsers
-        run: uv run playwright install --with-deps
+      # Playwright browser install
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
 
+      # Run E2E
       - name: Run Playwright tests
-        run: uv run playwright test
+        run: pnpm run test:e2e
