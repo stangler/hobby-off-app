@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Flask application for Hobby OFF image generator.
 
 Works both locally and on Vercel.
