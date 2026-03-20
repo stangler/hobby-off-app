@@ -40,7 +40,7 @@ class ImageGenerator:
         draw.text(
             (PRODUCT_NAME_POSITION.x, PRODUCT_NAME_POSITION.y),
             product.product_name,
-            font=self.font_tiny,   # font_small → font_tiny（12px → 16px）
+            font=self.font_tiny,   # font_small -> font_tiny (12px -> 16px)
             fill=(0, 0, 0),
         )
 
